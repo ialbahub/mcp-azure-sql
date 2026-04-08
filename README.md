@@ -34,58 +34,85 @@
 
 ## Quick Start
 
-**1. Install** &mdash; pick one:
+### &nbsp;&nbsp;1&nbsp;&nbsp; Add to your AI agent
+
+> **CLI agents** &mdash; one command, done:
 
 ```bash
-npx -y mcp-azure-sql --version          # via npm (easiest, works everywhere)
-go install github.com/ialbahub/mcp-azure-sql@latest   # via Go
-curl -fsSL https://raw.githubusercontent.com/ialbahub/mcp-azure-sql/main/install.sh | sh   # via script
+# Claude Code (Anthropic)
+claude mcp add --transport stdio --scope user azure-sql -- npx -y mcp-azure-sql
+
+# Codex CLI (OpenAI)
+codex mcp add azure-sql -- npx -y mcp-azure-sql
+
+# Gemini CLI (Google)
+gemini mcp add -s user azure-sql npx -y mcp-azure-sql
 ```
 
-**2. Add to your AI agent** &mdash; pick your agent:
-
-| Agent | One-liner |
-|:------|:----------|
-| ![Claude](https://img.shields.io/badge/-Claude_Code-D97706?style=flat-square&logo=anthropic&logoColor=white) | `claude mcp add --transport stdio --scope user azure-sql -- npx -y mcp-azure-sql` |
-| ![Codex](https://img.shields.io/badge/-Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white) | `codex mcp add azure-sql -- npx -y mcp-azure-sql` |
-| ![Gemini](https://img.shields.io/badge/-Gemini_CLI-4285F4?style=flat-square&logo=google&logoColor=white) | `gemini mcp add -s user azure-sql npx -y mcp-azure-sql` |
-
-For agents without a CLI, add this to the config file:
+> **IDE agents** &mdash; add this JSON block to your agent's config file:
 
 ```json
-"azure-sql": { "command": "npx", "args": ["-y", "mcp-azure-sql"],
-  "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" }}
+{
+  "azure-sql": {
+    "command": "npx",
+    "args": ["-y", "mcp-azure-sql"],
+    "env": {
+      "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json"
+    }
+  }
+}
 ```
 
 <details>
-<summary><strong>Config file locations per agent</strong></summary>
+<summary>Where does this go? (click to expand)</summary>
 
-| Agent | Config File |
-|:------|:-----------|
-| ![Claude Desktop](https://img.shields.io/badge/-Claude_Desktop-D97706?style=flat-square&logo=anthropic&logoColor=white) | `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Win) |
-| ![Copilot](https://img.shields.io/badge/-GitHub_Copilot-000?style=flat-square&logo=github&logoColor=white) | VS Code `settings.json` &rarr; `"mcp": { "servers": { ... } }` |
-| ![Cursor](https://img.shields.io/badge/-Cursor-00D1B2?style=flat-square) | `~/.cursor/mcp.json` &rarr; `"mcpServers": { ... }` |
-| ![Windsurf](https://img.shields.io/badge/-Windsurf-09B6A2?style=flat-square) | `~/.codeium/windsurf/mcp_config.json` &rarr; `"mcpServers": { ... }` |
-| ![Cline](https://img.shields.io/badge/-Cline-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white) | Cline MCP Settings UI, or `cline_mcp_settings.json` |
-| ![Continue](https://img.shields.io/badge/-Continue-FF6F00?style=flat-square) | `~/.continue/config.yaml` &rarr; `mcpServers:` |
+| Agent | File | Key |
+|:------|:-----|:----|
+| ![Copilot](https://img.shields.io/badge/-GitHub_Copilot-000?style=flat-square&logo=github&logoColor=white) | VS Code `settings.json` | `"mcp" > "servers"` |
+| ![Cursor](https://img.shields.io/badge/-Cursor-00D1B2?style=flat-square) | `~/.cursor/mcp.json` | `"mcpServers"` |
+| ![Windsurf](https://img.shields.io/badge/-Windsurf-09B6A2?style=flat-square) | `~/.codeium/windsurf/mcp_config.json` | `"mcpServers"` |
+| ![Cline](https://img.shields.io/badge/-Cline-007ACC?style=flat-square&logo=visualstudiocode&logoColor=white) | Cline Settings UI or `cline_mcp_settings.json` | `"mcpServers"` |
+| ![Continue](https://img.shields.io/badge/-Continue-FF6F00?style=flat-square) | `~/.continue/config.yaml` | `mcpServers:` (YAML) |
+| ![Claude](https://img.shields.io/badge/-Claude_Desktop-D97706?style=flat-square&logo=anthropic&logoColor=white) | `claude_desktop_config.json` | `"mcpServers"` |
 
 </details>
 
-**3. Configure databases** &mdash; create `~/.config/azure-sql-mcp/connections.json`:
+### &nbsp;&nbsp;2&nbsp;&nbsp; Configure your databases
+
+Create `~/.config/azure-sql-mcp/connections.json`:
 
 ```json
 {
   "defaults": { "auth": "azuread" },
   "connections": [
-    { "name": "dev",  "server": "myserver.database.windows.net", "database": "myapp-dev",  "environment": "dev" },
-    { "name": "prod", "server": "myserver.database.windows.net", "database": "myapp-prod", "environment": "prod", "prod": true }
+    {
+      "name": "dev",
+      "server": "myserver.database.windows.net",
+      "database": "myapp-dev",
+      "environment": "dev"
+    },
+    {
+      "name": "prod",
+      "server": "myserver.database.windows.net",
+      "database": "myapp-prod",
+      "environment": "prod",
+      "prod": true
+    }
   ]
 }
 ```
 
-**4. Sign in** &mdash; `az login`
+> See [`example-config.json`](example-config.json) for SQL auth, connection strings, and all options.
 
-Done. Your AI agent now has 34 database tools.
+### &nbsp;&nbsp;3&nbsp;&nbsp; Sign in to Azure
+
+```bash
+az login
+```
+
+### &nbsp;&nbsp;&check;&nbsp;&nbsp; Done
+
+Restart your AI agent. You now have 34 database tools.
 
 ---
 

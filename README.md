@@ -53,7 +53,13 @@ Most MCP servers are written in TypeScript or Python. This one is **Go** — and
 
 ### 1. Install
 
-**Download binary** (no Go required):
+**npx** (easiest — no download, works everywhere Node.js is installed):
+
+```bash
+npx -y mcp-azure-sql --version
+```
+
+**Download binary** (no Node.js or Go required):
 
 ```bash
 # Linux / macOS / WSL
@@ -118,7 +124,7 @@ Create `~/.config/azure-sql-mcp/connections.json`:
 
 ### 3. Add to your AI agent
 
-Pick your agent below, then restart it.
+Pick your agent below, then restart it. All examples use `npx` so there's nothing to download — or replace `npx -y mcp-azure-sql` with the binary path if you installed manually.
 
 ---
 
@@ -127,17 +133,21 @@ Pick your agent below, then restart it.
 <details>
 <summary><strong>Claude Code</strong></summary>
 
-Add to `~/.claude.json` under `mcpServers`:
+One command:
+```bash
+claude mcp add --transport stdio --scope user azure-sql -- npx -y mcp-azure-sql
+```
+
+Or add to `~/.claude.json` under `mcpServers`:
 
 ```json
 "azure-sql": {
   "type": "stdio",
-  "command": "mcp-azure-sql",
+  "command": "npx",
+  "args": ["-y", "mcp-azure-sql"],
   "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" }
 }
 ```
-
-Or via CLI: `claude mcp add --transport stdio --scope user azure-sql -- mcp-azure-sql`
 </details>
 
 <details>
@@ -147,7 +157,8 @@ Add to `~/.codex/config.toml`:
 
 ```toml
 [mcp_servers.azure-sql]
-command = "mcp-azure-sql"
+command = "npx"
+args = ["-y", "mcp-azure-sql"]
 env_vars = ["AZURE_SQL_CONFIG_FILE"]
 startup_timeout_sec = 30.0
 tool_timeout_sec = 120.0
@@ -163,7 +174,8 @@ Add to `~/.gemini/settings.json` under `mcpServers`:
 
 ```json
 "azure-sql": {
-  "command": "mcp-azure-sql",
+  "command": "npx",
+  "args": ["-y", "mcp-azure-sql"],
   "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" },
   "timeout": 120
 }
@@ -177,7 +189,8 @@ Add to `~/.cursor/mcp.json` under `mcpServers`:
 
 ```json
 "azure-sql": {
-  "command": "mcp-azure-sql",
+  "command": "npx",
+  "args": ["-y", "mcp-azure-sql"],
   "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" }
 }
 ```
@@ -193,7 +206,8 @@ Add to VS Code `settings.json`:
   "servers": {
     "azure-sql": {
       "type": "stdio",
-      "command": "mcp-azure-sql",
+      "command": "npx",
+      "args": ["-y", "mcp-azure-sql"],
       "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" }
     }
   }
@@ -208,7 +222,8 @@ Add to `~/.codeium/windsurf/mcp_config.json`:
 
 ```json
 { "mcpServers": { "azure-sql": {
-  "command": "mcp-azure-sql",
+  "command": "npx",
+  "args": ["-y", "mcp-azure-sql"],
   "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" }
 }}}
 ```
@@ -221,7 +236,8 @@ Edit `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mc
 
 ```json
 { "mcpServers": { "azure-sql": {
-  "command": "mcp-azure-sql",
+  "command": "npx",
+  "args": ["-y", "mcp-azure-sql"],
   "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" }
 }}}
 ```
@@ -235,7 +251,8 @@ Add to `~/.continue/config.yaml`:
 ```yaml
 mcpServers:
   - name: azure-sql
-    command: mcp-azure-sql
+    command: npx
+    args: ["-y", "mcp-azure-sql"]
     env:
       AZURE_SQL_CONFIG_FILE: ~/.config/azure-sql-mcp/connections.json
 ```
@@ -248,7 +265,8 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 
 ```json
 { "mcpServers": { "azure-sql": {
-  "command": "mcp-azure-sql",
+  "command": "npx",
+  "args": ["-y", "mcp-azure-sql"],
   "env": { "AZURE_SQL_CONFIG_FILE": "~/.config/azure-sql-mcp/connections.json" }
 }}}
 ```

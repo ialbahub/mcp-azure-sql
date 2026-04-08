@@ -1,0 +1,52 @@
+{
+  "name": "mcp-azure-sql",
+  "version": "1.2.0",
+  "description": "Enterprise-grade MCP server for Azure SQL with Azure AD auth, 34 tools, and tiered safety gates",
+  "license": "MIT",
+  "author": "Albahub, LLC <admin@albahub.io>",
+  "homepage": "https://github.com/ialbahub/mcp-azure-sql",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ialbahub/mcp-azure-sql.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ialbahub/mcp-azure-sql/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "azure-sql",
+    "sql-server",
+    "azure-ad",
+    "entra-id",
+    "database",
+    "ai-tools",
+    "claude",
+    "codex",
+    "gemini",
+    "copilot"
+  ],
+  "bin": {
+    "mcp-azure-sql": "bin/cli.js"
+  },
+  "scripts": {
+    "postinstall": "node bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ]
+}

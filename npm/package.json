@@ -1,6 +1,6 @@
 {
   "name": "mcp-azure-sql",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Enterprise-grade MCP server for Azure SQL with Azure AD auth, 34 tools, and tiered safety gates",
   "license": "MIT",
   "author": "Albahub, LLC <admin@albahub.io>",
